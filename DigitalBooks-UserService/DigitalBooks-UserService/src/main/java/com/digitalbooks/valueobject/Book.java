@@ -7,26 +7,28 @@ public class Book {
 	private Long bookId;
 	private String bookTitle;
 	private String bookCategory;
+	public Long authorId;
 	private String bookAuthor;
 	private Double bookPrice;
 	private String bookLogo;
 	private String bookContent;
 	private String bookPublisher;
 	private LocalDate bookPublishedDate;
-	private Character bookBlockedStatus;
+	private Character bookBlockedStatus = 'U';	//	Unblocked by default
 	
 	
 	public Book() {
 	}
 
 
-	public Book(Long bookId, String bookTitle, String bookCategory, String bookAuthor, Double bookPrice,
+	public Book(Long bookId, String bookTitle, String bookCategory, Long authorId, String bookAuthor, Double bookPrice,
 			String bookLogo, String bookContent, String bookPublisher, LocalDate bookPublishedDate,
 			Character bookBlockedStatus) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
 		this.bookCategory = bookCategory;
+		this.authorId = authorId;
 		this.bookAuthor = bookAuthor;
 		this.bookPrice = bookPrice;
 		this.bookLogo = bookLogo;

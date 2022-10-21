@@ -11,7 +11,7 @@ import com.digitalbooks.model.Subscription;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-	public Subscription findBySubscriptionid(Long subscriptionId);
+	public Subscription findBySubscriptionId(Long subscriptionId);
 
 	@Query("SELECT s from Subscription s where s.userId=:userId")
 	public List<Subscription> getUserSubscriptions(Long userId);

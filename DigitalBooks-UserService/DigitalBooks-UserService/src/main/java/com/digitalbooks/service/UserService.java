@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.digitalbooks.exceptionhandling.BusinessException;
 import com.digitalbooks.model.User;
 import com.digitalbooks.valueobject.Book;
 import com.digitalbooks.valueobject.ResponseTemplateUserSubscribedBooks;
@@ -14,9 +15,9 @@ public interface UserService {
 	
 	public List<User> getAllUsers();
 	
-	public User getUserById(Long userId);
+	public User getUserById(Long userId) throws BusinessException;
 	
-	public User signUp(User user);
+	public User signUp(User user) throws BusinessException;
 
 	public User dummySignUp();
 
@@ -26,13 +27,16 @@ public interface UserService {
 
 	public Subscription addSubscription(Long userId, Long bookId, Subscription subscription);
 
-	public Book createBook(Long userId, Book book);
+	public Book createBook(Long userId, Book book) throws BusinessException;
 
-	public Book updateBook(Long userId, Long bookId, Book book);
+	public Book updateBook(Long userId, Long bookId, Book book) throws BusinessException;
 
 	public void deleteBook(Long userId, Long bookId);
 
-	public Book setBookBlockedStatus(Long userId, Long bookId, String block, Book book);
+	public Book setBookBlockedStatus(Long userId, Long bookId, String block, Book book)
+		throws BusinessException;
+
+	public List<Book> getAllBooks();
 	
 	
 

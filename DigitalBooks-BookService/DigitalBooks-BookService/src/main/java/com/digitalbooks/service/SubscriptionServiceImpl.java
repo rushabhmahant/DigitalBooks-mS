@@ -35,7 +35,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		Subscription newSubscription = new Subscription();
 		Book subscribedBook = bookRepository.findByBookId(bookId);
 		if(subscribedBook == null) {
-			//throw exception
+			//throw exception, also check if book is already subscribed
 		}
 		newSubscription.setUserId(userId);
 		newSubscription.setBookId(bookId);

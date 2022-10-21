@@ -23,6 +23,8 @@ public class Book {
 	@Column(nullable = false)
 	private String bookCategory;
 	@Column(nullable = false)
+	private Long authorId;
+	@Column(nullable = false)
 	private String bookAuthor;
 	@Column(nullable = false)
 	private Double bookPrice;
@@ -42,13 +44,14 @@ public class Book {
 	}
 
 
-	public Book(Long bookId, String bookTitle, String bookCategory, String bookAuthor, Double bookPrice,
+	public Book(Long bookId, String bookTitle, String bookCategory, Long authorId, String bookAuthor, Double bookPrice,
 			String bookLogo, String bookContent, String bookPublisher, LocalDate bookPublishedDate,
 			Character bookBlockedStatus) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
 		this.bookCategory = bookCategory;
+		this.authorId = authorId;
 		this.bookAuthor = bookAuthor;
 		this.bookPrice = bookPrice;
 		this.bookLogo = bookLogo;
@@ -156,6 +159,16 @@ public class Book {
 
 	public void setBookBlockedStatus(Character bookBlockedStatus) {
 		this.bookBlockedStatus = bookBlockedStatus;
+	}
+
+
+	public Long getAuthorId() {
+		return authorId;
+	}
+
+
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
 	}
 	
 	

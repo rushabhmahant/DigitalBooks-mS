@@ -55,8 +55,9 @@ public class BookController {
 	//	APIs below are accessible only to authors
 	
 	@PostMapping("/author/{authorId}/books")
-	public Book createBook(@RequestBody Book book) {
-		return bookService.createBook(book);
+	public Book createBook(@PathVariable Long authorId, @RequestBody Book book) {
+		
+		return bookService.createBook(authorId, book);
 	}
 	
 	@PutMapping("/author/{authorId}/books/{bookId}")
@@ -67,13 +68,14 @@ public class BookController {
 	
 	@DeleteMapping("/author/delete/{authorId}/{bookId}")
 	public void deleteBook(@PathVariable Long bookId) {
+		
 		bookService.deleteBook(bookId);
 	}
 	
 	@PostMapping("/author/{authorId}/books/{bookId}")
-	public Book setBookBlockedStatus(@PathVariable Long bookId, @RequestParam String block,
+	public Book setBookBlockedStatus(@PathVariable Long authorId, @PathVariable Long bookId, @RequestParam String block,
 			@RequestBody Book book) {
-		return bookService.setBookBlockedStatus(bookId, block, book);
+		return bookService.setBookBlockedStatus(authorId, bookId, block, book);
 	}
 
 }

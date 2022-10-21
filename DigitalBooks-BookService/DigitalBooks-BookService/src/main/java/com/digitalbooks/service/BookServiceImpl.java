@@ -44,12 +44,14 @@ public class BookServiceImpl implements BookService {
 		List<Subscription> userSubscriptions = subscriptionRepository.getUserSubscriptions(userId);
 		List<Book> userSubscribedBooks = new ArrayList<Book>();
 		for(Subscription s: userSubscriptions) {
+			// perform a check if findByBookId(s.bookId) != null
 			userSubscribedBooks.add(bookRepository.findByBookId(s.getBookId()));
 		}
 		return userSubscribedBooks;
 	}
 	
-	public Book createBook(Book book) {
+	public Book createBook(Long authorId, Book book) {
+		book.setAuthorId(authorId);
 		return bookRepository.save(book);
 	}
 	
@@ -62,10 +64,11 @@ public class BookServiceImpl implements BookService {
 		bookRepository.deleteById(bookId);
 	}
 
-	public Book setBookBlockedStatus(Long bookId, String block, Book book) {
+	public Book setBookBlockedStatus(Long authorId, Long bookId, String block, Book book) {
 		Character bookStatus = (block.equals("yes")) ? 'B' : 'U';
 		if(!bookStatus.equals(book.getBookBlockedStatus())) {
-			// book.setBookId(bookId);
+			book.setBookId(bookId);
+			book.setAuthorId(authorId);
 			book.setBookBlockedStatus(bookStatus);
 			bookRepository.save(book);
 			if(bookStatus.equals('B')) {

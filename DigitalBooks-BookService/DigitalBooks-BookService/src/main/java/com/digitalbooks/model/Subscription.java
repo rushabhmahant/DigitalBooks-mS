@@ -89,6 +89,13 @@ public class Subscription {
 	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
+
+	@Override
+	public String toString() {
+		return "Subscription [subscriptionId=" + subscriptionId + ", userId=" + userId + ", bookId=" + bookId
+				+ ", subscriptionStatus=" + subscriptionStatus + ", subscriptionDate=" + subscriptionDate
+				+ ", subscriptionPrice=" + subscriptionPrice + "]";
+	}
 	
 
 }

@@ -8,6 +8,6 @@ import com.digitalbooks.model.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 	
-	public Role findRoleById(Long roleId);
+	public Role findByRoleId(Long roleId);
 
 }

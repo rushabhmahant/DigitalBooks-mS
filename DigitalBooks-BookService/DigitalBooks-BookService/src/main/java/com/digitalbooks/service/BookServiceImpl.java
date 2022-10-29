@@ -33,8 +33,8 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findById(bookId).get();
 	}
 	
-	public List<Book> searchBook(String category, String title, String author, Double price, String publisher) {		
-		return bookRepository.searchBook(category, title, author, price, publisher);
+	public List<Book> searchBook(String category, String title, String author, Double price) {		
+		return bookRepository.searchBook(category, title, author, price);
 	}
 
 	//	Readers APIs below

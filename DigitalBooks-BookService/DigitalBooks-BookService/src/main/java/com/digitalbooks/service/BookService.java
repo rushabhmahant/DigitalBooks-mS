@@ -17,7 +17,7 @@ public interface BookService {
 	
 	public Book updateBook(Long bookId, Book book);
 	
-	public List<Book> searchBook(String category, String title, String author, Double price, String publisher);
+	public List<Book> searchBook(String category, String title, String author, Double price);
 	
 	public void deleteBook(Long bookId);
 	

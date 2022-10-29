@@ -3,6 +3,7 @@ package com.digitalbooks.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.digitalbooks.model.Subscription;
 import com.digitalbooks.service.BookService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/bookservice")
 public class BookController {
 	
@@ -35,9 +37,8 @@ public class BookController {
 	public List<Book> searchBook(@RequestParam(required = false) String category,
 			@RequestParam(required = false) String title,
 			@RequestParam(required = false) String author,
-			@RequestParam(required = false) Double price,
-			@RequestParam(required = false) String publisher) {
-		return bookService.searchBook(category, title, author, price, publisher);
+			@RequestParam(required = false) Double price) {
+		return bookService.searchBook(category, title, author, price);
 	}
 	
 	@GetMapping("/book/{bookId}")

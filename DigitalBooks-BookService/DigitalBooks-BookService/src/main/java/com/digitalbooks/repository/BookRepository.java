@@ -16,8 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	@Query("SELECT b FROM Book b where (:category is null or b.bookCategory=:category) and "
 			+ "(:title is null or b.bookTitle=:title) and "
 			+ "(:author is null or b.bookAuthor=:author) and "
-			+ "(:price is null or b.bookPrice=:price) and "
-			+ "(:publisher is null or b.bookPublisher=:publisher)")
-	public List<Book> searchBook(String category, String title, String author, Double price, String publisher);
+			+ "(:price is null or b.bookPrice=:price)")
+	public List<Book> searchBook(String category, String title, String author, Double price);
 	
 }

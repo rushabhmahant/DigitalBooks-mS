@@ -10,7 +10,7 @@ import com.digitalbooks.model.Role;
 import com.digitalbooks.repository.RoleRepository;
 
 @Service
-public class RoleServiceImpl {
+public class RoleServiceImpl implements RoleService {
 	
 	@Autowired
 	private RoleRepository roleRepository;

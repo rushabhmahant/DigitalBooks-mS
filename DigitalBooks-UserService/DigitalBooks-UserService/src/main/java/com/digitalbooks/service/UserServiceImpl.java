@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.digitalbooks.exceptionhandling.BusinessException;
+import com.digitalbooks.model.Role;
 import com.digitalbooks.model.User;
 import com.digitalbooks.repository.UserRepository;
 import com.digitalbooks.valueobject.Book;
@@ -45,13 +46,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User dummySignUp() {
+	public User dummySignUp(Long roleId) {
 		User user = new User();
 		user.setUserFirstName("raj");
 		user.setUserLastName("rai");
 		user.setUsername("raj.rai@abc.com");
 		user.setUserPassword("raj123");
-		user.setUserAccountType('R');
+		user.addUserRole(new Role(roleId));
 		return userRepository.save(user);
 	}
 

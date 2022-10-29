@@ -5,7 +5,6 @@ public class User {
 	private Long userId;
 	private String username;
 	private String userPassword;
-	private Character userAccountType;	// 'R' or 'A'
 	private String userFirstName;
 	private String userLastName;
 	
@@ -13,13 +12,12 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(Long userId, String username, String userPassword, Character userAccountType, String userFirstName,
+	public User(Long userId, String username, String userPassword, String userFirstName,
 			String userLastName) {
 		super();
 		this.userId = userId;
 		this.username = username;
 		this.userPassword = userPassword;
-		this.userAccountType = userAccountType;
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 	}
@@ -48,13 +46,6 @@ public class User {
 		this.userPassword = userPassword;
 	}
 
-	public Character getUserAccountType() {
-		return userAccountType;
-	}
-
-	public void setUserAccountType(Character userAccountType) {
-		this.userAccountType = userAccountType;
-	}
 
 	public String getUserFirstName() {
 		return userFirstName;

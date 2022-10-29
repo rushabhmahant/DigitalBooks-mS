@@ -19,7 +19,7 @@ public interface UserService {
 	
 	public User signUp(User user) throws BusinessException;
 
-	public User dummySignUp();
+	public User dummySignUp(Long roleId);
 
 	public ResponseTemplateUserSubscribedBooks getUserSubscribedBooks(Long userId);
 

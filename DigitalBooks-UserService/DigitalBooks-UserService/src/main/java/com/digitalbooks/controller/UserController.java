@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.digitalbooks.exceptionhandling.BusinessException;
 import com.digitalbooks.exceptionhandling.ControllerException;
+import com.digitalbooks.model.Role;
 import com.digitalbooks.model.User;
+import com.digitalbooks.service.RoleService;
 import com.digitalbooks.service.UserService;
 import com.digitalbooks.valueobject.Book;
 import com.digitalbooks.valueobject.ResponseTemplateUserSubscribedBooks;
@@ -25,11 +28,15 @@ import com.digitalbooks.valueobject.ResponseTemplateUserSubscriptions;
 import com.digitalbooks.valueobject.Subscription;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/userservice")
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@GetMapping("/users")
 	public List<User> getAllUsers(){
@@ -69,9 +76,9 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/dummysignup")
-	public User dummySignUp(){
-		return userService.dummySignUp();
+	@PostMapping("/dummysignup/{roleId}")
+	public User dummySignUp(@PathVariable Long roleId){
+		return userService.dummySignUp(roleId);
 	}
 	
 	//	APIs below are for Readers
@@ -148,10 +155,16 @@ public class UserController {
 			return new ResponseEntity<ControllerException>(ce, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	/*****************Less Importatnt APIs below*******************/
 	
 	@GetMapping("/author/getAllBooks")
 	public List<Book> getAllBooks(){
 		return userService.getAllBooks();
+	}
+	
+	@GetMapping("/role/addRoles")
+	public List<Role> addRolesInDb() {
+		return this.roleService.addRolesInDb();
 	}
 
 }

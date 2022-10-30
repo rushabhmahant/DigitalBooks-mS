@@ -19,8 +19,6 @@ public interface UserService {
 	
 	public User signUp(User user) throws BusinessException;
 
-	public User dummySignUp(Long roleId);
-
 	public ResponseTemplateUserSubscribedBooks getUserSubscribedBooks(Long userId);
 
 	public ResponseTemplateUserSubscriptions getAllUserSubscriptions(Long userId);
@@ -37,6 +35,8 @@ public interface UserService {
 		throws BusinessException;
 
 	public List<Book> getAllBooks();
+
+	public User assignRoleToUser(Long userId, Long roleId);
 	
 	
 

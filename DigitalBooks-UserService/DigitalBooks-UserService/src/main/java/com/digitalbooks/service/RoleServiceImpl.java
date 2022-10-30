@@ -19,7 +19,7 @@ public class RoleServiceImpl implements RoleService {
 		Role r1 = new Role();
 		r1.setRoleName("ROLE_AUTHOR");
 		Role r2 = new Role();
-		r2.setRoleName("ROLE_USER");
+		r2.setRoleName("ROLE_READER");
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(r1);
 		roles.add(r2);

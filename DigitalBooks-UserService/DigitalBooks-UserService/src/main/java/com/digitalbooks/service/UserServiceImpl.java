@@ -46,17 +46,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User dummySignUp(Long roleId) {
-		User user = new User();
-		user.setUserFirstName("raj");
-		user.setUserLastName("rai");
-		user.setUsername("raj.rai@abc.com");
-		user.setUserPassword("raj123");
-		user.addUserRole(new Role(roleId));
-		return userRepository.save(user);
-	}
-
-	@Override
 	public ResponseTemplateUserSubscribedBooks getUserSubscribedBooks(Long userId) {
 		
 		ResponseTemplateUserSubscribedBooks rt = new ResponseTemplateUserSubscribedBooks();
@@ -138,6 +127,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Book> getAllBooks() {
 		return restTemplate.getForObject("http://localhost:9191/bookservice/books", List.class);
+	}
+
+	@Override
+	public User assignRoleToUser(Long userId, Long roleId) {
+		User user = userRepository.findByUserId(userId);
+		user.addUserRole(new Role(roleId));
+		return userRepository.save(user);
 	}
 	
 	

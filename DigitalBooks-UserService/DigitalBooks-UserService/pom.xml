@@ -42,6 +42,20 @@
       		<groupId>org.springframework.cloud</groupId>
       		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
     	</dependency>
+    	<!-- Spring Security & jwt Dependencies -->
+		<dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-security</artifactId>
+    	</dependency>
+    	<dependency>
+        	<groupId>io.jsonwebtoken</groupId>
+        	<artifactId>jjwt</artifactId>
+        	<version>0.9.1</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-config</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<!-- Dependency Management for Eureka Discovery client -->

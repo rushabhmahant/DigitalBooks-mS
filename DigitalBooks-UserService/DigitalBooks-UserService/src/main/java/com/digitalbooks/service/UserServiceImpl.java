@@ -3,6 +3,7 @@ package com.digitalbooks.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -42,6 +46,9 @@ public class UserServiceImpl implements UserService {
 		if(user == null || user.getUsername().isBlank() || user.getUserPassword().isEmpty()) {
 			throw new BusinessException("602", "Provide valid inputs for user");
 		}
+		String password = user.getUserPassword();
+		String encodedPassword = passwordEncoder.encode(password);
+		user.setUserPassword(encodedPassword);
 		return userRepository.save(user);
 	}
 

@@ -32,6 +32,21 @@ public class JWTTokenFilter extends OncePerRequestFilter {
                 HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
     	System.out.println("Inside JwtTokenFilter's doFilterInternal()");
+    	
+    	response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setStatus(HttpServletResponse.SC_OK);
+
+        if("OPTIONS".equals(request.getMethod())) {
+        	System.out.println("Request inside if('OPTIONS')");
+            response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));
+            response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
+            response.setHeader("Access-Control-Max-Age", "1728000");
+            response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+            response.addHeader("Content_Type", "Authorization");
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+    	
         if (!hasAuthorizationBearer(request)) {
         	//remove line 37 after testing
         	//response.sendError(1, "Authorization header needed!");
@@ -48,6 +63,9 @@ public class JWTTokenFilter extends OncePerRequestFilter {
         }
  
         setAuthenticationContext(token, request);
+        
+        
+        
         filterChain.doFilter(request, response);
     }
  

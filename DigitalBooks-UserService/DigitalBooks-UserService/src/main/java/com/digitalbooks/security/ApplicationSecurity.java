@@ -1,5 +1,7 @@
 package com.digitalbooks.security;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import com.digitalbooks.repository.UserRepository;
 import com.digitalbooks.jwtutil.JWTTokenFilter;
@@ -64,13 +67,22 @@ public class ApplicationSecurity {
     
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    	
+    	CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "Access-Control-Allow-Origin", "status"));
+        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT","OPTIONS","PATCH", "DELETE"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+        
+    	
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          
         http.authorizeRequests()
                 .antMatchers("/userservice/authenticate", "/userservice/signup",
                 		"/userservice/role/addRoles", "/userservice/role/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().and().csrf().disable().cors().configurationSource(request -> corsConfiguration);
          
             http.exceptionHandling()
                     .authenticationEntryPoint(

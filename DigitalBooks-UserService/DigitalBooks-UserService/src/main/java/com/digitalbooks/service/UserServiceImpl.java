@@ -115,6 +115,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Book setBookBlockedStatus(Long userId, Long bookId, String block, Book book) throws BusinessException {
+		
 		if(userId == null || userId.toString().length()==0) {
 			throw new BusinessException("603", "Please provide a valid user id in the url");
 		}

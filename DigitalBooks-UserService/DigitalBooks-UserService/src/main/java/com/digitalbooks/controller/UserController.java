@@ -77,10 +77,10 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/signup")
-	public ResponseEntity<?> userSignup(@RequestBody User user) {
+	@PostMapping("/signup/{roleId}")
+	public ResponseEntity<?> userSignup(@PathVariable Long roleId, @RequestBody User user) {
 		try {
-			User newUser = userService.signUp(user);
+			User newUser = userService.signUp(user, roleId);
 			return new ResponseEntity<User>(newUser, HttpStatus.OK);
 		}
 		catch(BusinessException be) {

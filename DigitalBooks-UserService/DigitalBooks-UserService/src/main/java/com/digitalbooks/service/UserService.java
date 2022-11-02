@@ -17,7 +17,7 @@ public interface UserService {
 	
 	public User getUserById(Long userId) throws BusinessException;
 	
-	public User signUp(User user) throws BusinessException;
+	public User signUp(User user, Long roleId) throws BusinessException;
 
 	public ResponseTemplateUserSubscribedBooks getUserSubscribedBooks(Long userId);
 

@@ -42,13 +42,17 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User signUp(User user) {
+	public User signUp(User user, Long roleId) {
 		if(user == null || user.getUsername().isBlank() || user.getUserPassword().isEmpty()) {
 			throw new BusinessException("602", "Provide valid inputs for user");
+		}
+		if(roleId != 101 && roleId != 102) {
+			throw new BusinessException("606", "Provide valid valid role id for user");
 		}
 		String password = user.getUserPassword();
 		String encodedPassword = passwordEncoder.encode(password);
 		user.setUserPassword(encodedPassword);
+		user.addUserRole(new Role(roleId));
 		return userRepository.save(user);
 	}
 
@@ -115,7 +119,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Book setBookBlockedStatus(Long userId, Long bookId, String block, Book book) throws BusinessException {
-		
 		if(userId == null || userId.toString().length()==0) {
 			throw new BusinessException("603", "Please provide a valid user id in the url");
 		}

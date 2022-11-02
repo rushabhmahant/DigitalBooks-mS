@@ -19,4 +19,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
 	@Query("SELECT s from Subscription s where s.bookId=:bookId")
 	public List<Subscription> getUserSubscriptionsByBook(Long bookId);
 	
+	public void deleteBySubscriptionId(Long subscriptionId);
+	
 }

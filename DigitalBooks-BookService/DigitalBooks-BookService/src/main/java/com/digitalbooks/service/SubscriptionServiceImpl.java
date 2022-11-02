@@ -39,9 +39,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		}
 		newSubscription.setUserId(userId);
 		newSubscription.setBookId(bookId);
+		newSubscription.setBookTitle(subscribedBook.getBookTitle());
 		newSubscription.setSubscriptionDate(LocalDate.now());
 		newSubscription.setSubscriptionPrice(subscribedBook.getBookPrice());
 		return subscriptionRepository.save(newSubscription);
+	}
+
+	@Override
+	public void deleteBySubscriptionId(Long subscriptionId) {
+		subscriptionRepository.deleteBySubscriptionId(subscriptionId);
+		
 	}
 
 }

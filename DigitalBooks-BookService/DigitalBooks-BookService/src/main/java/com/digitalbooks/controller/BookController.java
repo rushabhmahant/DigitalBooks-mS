@@ -61,7 +61,7 @@ public class BookController {
 		return bookService.createBook(authorId, book);
 	}
 	
-	@PutMapping("/author/{authorId}/books/{bookId}")
+	@PutMapping("/author/{authorId}/book/{bookId}")
 	public Book updateBook(@PathVariable Long bookId, @RequestBody Book book) {
 		// Make sure to include bookId in request to perform update
 		return bookService.updateBook(bookId, book);

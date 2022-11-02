@@ -26,6 +26,8 @@ public class Subscription {
 	@Column(nullable = false)
 	private Long bookId;
 	@Column(nullable = false)
+	private String bookTitle;
+	@Column(nullable = false)
 	private Character subscriptionStatus = 'A';	// Subscription status set to Active by default
 	@Column(nullable = false)
 	private LocalDate subscriptionDate;
@@ -36,14 +38,23 @@ public class Subscription {
 		// Default constructor
 	}
 
-	public Subscription(Long userId, Long bookId, Character subscriptionStatus,
+	public Subscription(Long userId, Long bookId, String bookTitle, Character subscriptionStatus,
 			LocalDate subscriptionDate, Double subscriptionPrice) {
 		super();
 		//this.userId = userId;
 		this.bookId = bookId;
+		this.bookTitle = bookTitle;
 		this.subscriptionStatus = subscriptionStatus;
 		this.subscriptionDate = subscriptionDate;
 		this.subscriptionPrice = subscriptionPrice;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
 	}
 
 	public Character getSubscriptionStatus() {

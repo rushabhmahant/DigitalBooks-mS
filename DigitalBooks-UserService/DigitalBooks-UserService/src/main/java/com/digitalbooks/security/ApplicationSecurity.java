@@ -81,6 +81,7 @@ public class ApplicationSecurity {
          
         http.authorizeRequests()
                 .antMatchers("/userservice/authenticate", "/userservice/signup",
+                		"/userservice/author/getAllBooks",
                 		"/userservice/role/addRoles", "/userservice/role/**").permitAll()
                 .anyRequest().authenticated().and().csrf().disable().cors().configurationSource(request -> corsConfiguration);
          

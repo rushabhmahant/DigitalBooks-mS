@@ -196,7 +196,7 @@ public class UserController {
 	}
 	/*****************Less Importatnt APIs below*******************/
 	
-	@RolesAllowed({"ROLE_AUTHOR","ROLE_READER"})
+	//@RolesAllowed({"ROLE_AUTHOR","ROLE_READER"})
 	@GetMapping("/author/getAllBooks")
 	public List<Book> getAllBooks(){
 		return userService.getAllBooks();

@@ -12,4 +12,6 @@ public interface SubscriptionService {
 	
 	public Subscription addSubscription(Long userId, Long bookId);
 
+	public void deleteBySubscriptionId(Long subscriptionId);
+
 }

@@ -18,5 +18,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 			+ "(:author is null or b.bookAuthor=:author) and "
 			+ "(:price is null or b.bookPrice=:price)")
 	public List<Book> searchBook(String category, String title, String author, Double price);
+
+	
 	
 }

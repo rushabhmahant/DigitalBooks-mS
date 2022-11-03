@@ -58,6 +58,14 @@ public class Book {
 		this.bookTitle = bookTitle;
 	}
 
+	public Long getAuthorId() {
+		return authorId;
+	}
+
+
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
+	}
 
 	public String getBookCategory() {
 		return bookCategory;

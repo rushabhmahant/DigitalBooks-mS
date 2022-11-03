@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	public Book updateBook(Long bookId, Book book) {
-		// book.setBookId(bookId);
+		book.setBookId(bookId);
 		return bookRepository.save(book);
 	}
 
@@ -76,7 +76,7 @@ public class BookServiceImpl implements BookService {
 						subscriptionRepository.getUserSubscriptionsByBook(bookId);
 				User user = null;
 				for(Subscription s: userSubscriptions) {
-					user = restTemplate.getForObject("http://localhost:7001/userservice/user/"+s.getUserId(), User.class);
+					user = restTemplate.getForObject("http://localhost:7001/api/v1/digitalbooks/userservice/user/"+s.getUserId(), User.class);
 					System.out.println("Notification for user " + user.getUsername() + 
 							": The book you subscribed " + book.getBookTitle() + 
 							" is blocked and no longer available.");

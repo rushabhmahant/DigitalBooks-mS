@@ -14,4 +14,8 @@ public interface SubscriptionService {
 
 	public void deleteBySubscriptionId(Long subscriptionId);
 
+	public List<Subscription> getUserSubscriptionsByBook(Long bookId);
+
+	public Subscription updateSubscriptionStatus(Long subscriptionId, String status);
+
 }

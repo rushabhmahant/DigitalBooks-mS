@@ -51,4 +51,21 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		
 	}
 
+	@Override
+	public List<Subscription> getUserSubscriptionsByBook(Long bookId) {
+		return subscriptionRepository.getUserSubscriptionsByBook(bookId);
+	}
+
+	@Override
+	public Subscription updateSubscriptionStatus(Long subscriptionId, String status) {
+		Subscription subscription = subscriptionRepository.findBySubscriptionId(subscriptionId);
+		if(subscription!=null) {
+			Character subscriptionStatus = status.equalsIgnoreCase("inactive") ? 'I' : 'A';
+			subscription.setSubscriptionStatus(subscriptionStatus);
+			subscriptionRepository.save(subscription);
+		}
+		return null;
+		
+	}
+
 }

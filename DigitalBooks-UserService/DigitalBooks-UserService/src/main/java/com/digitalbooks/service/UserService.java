@@ -10,6 +10,8 @@ import com.digitalbooks.valueobject.Book;
 import com.digitalbooks.valueobject.ResponseTemplateUserSubscribedBooks;
 import com.digitalbooks.valueobject.ResponseTemplateUserSubscriptions;
 import com.digitalbooks.valueobject.Subscription;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public interface UserService {
 	
@@ -32,11 +34,13 @@ public interface UserService {
 	public void deleteBook(Long userId, Long bookId);
 
 	public Book setBookBlockedStatus(Long userId, Long bookId, String block, Book book)
-		throws BusinessException;
+		throws BusinessException, JsonMappingException, JsonProcessingException;
 
 	public List<Book> getAllBooks();
 
 	public User assignRoleToUser(Long userId, Long roleId);
+
+	public Book getBookById(Long userId, Long bookId);
 	
 	
 

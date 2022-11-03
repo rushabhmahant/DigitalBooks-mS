@@ -85,6 +85,13 @@ public class Subscription {
 	public void setSubscriptionPrice(Double subscriptionPrice) {
 		this.subscriptionPrice = subscriptionPrice;
 	}
+
+	@Override
+	public String toString() {
+		return "Subscription [subscriptionId=" + subscriptionId + ", userId=" + userId + ", bookId=" + bookId
+				+ ", bookTitle=" + bookTitle + ", subscriptionStatus=" + subscriptionStatus + ", subscriptionDate="
+				+ subscriptionDate + ", subscriptionPrice=" + subscriptionPrice + "]";
+	}
 	
 	
 

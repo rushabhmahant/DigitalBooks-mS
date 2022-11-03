@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,8 @@ public class BookController {
 		return bookService.getAllBooks();
 	}
 	
+	//	APIs below are for Readers
+	
 	@GetMapping("/search")
 	public List<Book> searchBook(@RequestParam(required = false) String category,
 			@RequestParam(required = false) String title,
@@ -46,7 +49,6 @@ public class BookController {
 		return bookService.getBookById(bookId);
 	}
 	
-	//	APIs below are for Readers
 	
 	@GetMapping("/readers/{userId}")
 	public List<Book> getUserSubscribedBooks(@PathVariable Long userId){
@@ -61,7 +63,7 @@ public class BookController {
 		return bookService.createBook(authorId, book);
 	}
 	
-	@PutMapping("/author/{authorId}/book/{bookId}")
+	@PostMapping("/author/{authorId}/book/{bookId}")
 	public Book updateBook(@PathVariable Long bookId, @RequestBody Book book) {
 		// Make sure to include bookId in request to perform update
 		return bookService.updateBook(bookId, book);
@@ -73,6 +75,7 @@ public class BookController {
 		bookService.deleteBook(bookId);
 	}
 	
+	//	(To be called in userservice, not here !!)
 	@PostMapping("/author/{authorId}/books/{bookId}")
 	public Book setBookBlockedStatus(@PathVariable Long authorId, @PathVariable Long bookId, @RequestParam String block,
 			@RequestBody Book book) {

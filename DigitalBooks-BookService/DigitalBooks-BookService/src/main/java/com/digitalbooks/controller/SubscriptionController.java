@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,13 +32,24 @@ public class SubscriptionController {
 		return subscriptionService.getAllUserSubscriptions(userId);
 	}
 	
+	@GetMapping("/author/{bookId}")
+	public List<Subscription> getUserSubscriptionsByBook(@PathVariable Long bookId){
+		return subscriptionService.getUserSubscriptionsByBook(bookId);
+	}
+	
 	@PostMapping("/{userId}/subscribe/{bookId}")
 	public Subscription subscribe(@PathVariable Long userId, @PathVariable Long bookId, @RequestBody Subscription subscription) {
 		return subscriptionService.addSubscription(userId, bookId);
 	}
 	
-	@DeleteMapping("/{userId}/removesubscription")
-	public ResponseEntity<?> removeSubscription(@PathVariable Long userId, @RequestParam Long subscriptionId) {
+	@PutMapping("/{userId}/updatesubscriptionstatus/{subscriptionId}/{status}")
+	public Subscription updateSubscriptionStatus(@PathVariable Long userId, @PathVariable Long subscriptionId, @PathVariable String status) {
+		return subscriptionService.updateSubscriptionStatus(subscriptionId, status);
+		
+	}
+	
+	@DeleteMapping("/{userId}/removesubscription/{subscriptionId}")
+	public ResponseEntity<?> removeSubscription(@PathVariable Long userId, @PathVariable Long subscriptionId) {
 		subscriptionService.deleteBySubscriptionId(subscriptionId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

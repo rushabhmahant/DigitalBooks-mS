@@ -80,7 +80,7 @@ public class ApplicationSecurity {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          
         http.authorizeRequests()
-                .antMatchers("/userservice/authenticate", "/userservice/signup",
+                .antMatchers("/userservice/authenticate", "/userservice/signup/**",
                 		"/userservice/author/getAllBooks",
                 		"/userservice/role/addRoles", "/userservice/role/**").permitAll()
                 .anyRequest().authenticated().and().csrf().disable().cors().configurationSource(request -> corsConfiguration);

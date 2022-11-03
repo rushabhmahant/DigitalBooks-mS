@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,8 @@ import com.digitalbooks.valueobject.Book;
 import com.digitalbooks.valueobject.ResponseTemplateUserSubscribedBooks;
 import com.digitalbooks.valueobject.ResponseTemplateUserSubscriptions;
 import com.digitalbooks.valueobject.Subscription;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 @CrossOrigin
@@ -94,6 +97,12 @@ public class UserController {
 	}
 	
 	//	APIs below are for Readers
+	
+	@RolesAllowed({"ROLE_READER"})
+	@GetMapping("/readers/{userId}/book/{bookId}")
+	public Book getBookById(@PathVariable Long userId, @PathVariable Long bookId){
+		return userService.getBookById(userId, bookId);
+	}
 	
 	@RolesAllowed({"ROLE_READER"})
 	@GetMapping("/readers/{userId}/books")
@@ -169,10 +178,18 @@ public class UserController {
 			ControllerException ce = new ControllerException(be.getErrorCode(), be.getErrorMessage());
 			return new ResponseEntity<ControllerException>(ce, HttpStatus.BAD_REQUEST);
 		} 
-		catch(Exception e) {
-			ControllerException ce = new ControllerException("701", "Exception occurred "+e.getMessage());
-			return new ResponseEntity<ControllerException>(ce, HttpStatus.INTERNAL_SERVER_ERROR);
+//		catch(Exception e) {
+//			ControllerException ce = new ControllerException("701", "Exception occurred "+e.getMessage());
+//			return new ResponseEntity<ControllerException>(ce, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+ catch (JsonMappingException e) {
+			System.out.println("JSONMappingException");
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	@PostMapping("/authenticate")

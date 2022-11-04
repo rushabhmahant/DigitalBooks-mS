@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.digitalbooks.model.Book;
+import com.digitalbooks.model.Logo;
 import com.digitalbooks.model.Subscription;
 import com.digitalbooks.repository.BookRepository;
+import com.digitalbooks.repository.LogoRepository;
 import com.digitalbooks.repository.SubscriptionRepository;
 import com.digitalbooks.valueobject.User;
 
@@ -21,6 +23,8 @@ public class BookServiceImpl implements BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired LogoRepository logoRepository;
 	
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
@@ -50,8 +54,16 @@ public class BookServiceImpl implements BookService {
 		return userSubscribedBooks;
 	}
 	
-	public Book createBook(Long authorId, Book book) {
+	public Book createBook(Long authorId, Book book, Long logoId) {
 		book.setAuthorId(authorId);
+		System.out.println("LogoId received: " + logoId);
+		if(logoId != null && !logoId.toString().isBlank()) {
+		Logo bookLogo = logoRepository.findByLogoId(logoId);
+		System.out.println(bookLogo.getLogoId()+", " + bookLogo.getLogoName());
+			if(bookLogo != null) {
+				book.setLogo(bookLogo);
+			}
+		}
 		return bookRepository.save(book);
 	}
 	

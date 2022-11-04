@@ -58,9 +58,10 @@ public class BookController {
 	//	APIs below are accessible only to authors
 	
 	@PostMapping("/author/{authorId}/books")
-	public Book createBook(@PathVariable Long authorId, @RequestBody Book book) {
+	public Book createBook(@PathVariable Long authorId, @RequestBody Book book,
+			@RequestParam(required = false) Long logoId) {
 		
-		return bookService.createBook(authorId, book);
+		return bookService.createBook(authorId, book, logoId);
 	}
 	
 	@PostMapping("/author/{authorId}/book/{bookId}")

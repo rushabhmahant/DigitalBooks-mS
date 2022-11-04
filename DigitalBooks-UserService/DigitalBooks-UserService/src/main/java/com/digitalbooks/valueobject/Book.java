@@ -16,6 +16,7 @@ public class Book {
 	private LocalDate bookPublishedDate;
 	private Character bookBlockedStatus = 'U';	//	Unblocked by default
 	
+	private Logo logo;
 	
 	public Book() {
 	}
@@ -23,7 +24,7 @@ public class Book {
 
 	public Book(Long bookId, String bookTitle, String bookCategory, Long authorId, String bookAuthor, Double bookPrice,
 			String bookLogo, String bookContent, String bookPublisher, LocalDate bookPublishedDate,
-			Character bookBlockedStatus) {
+			Character bookBlockedStatus, Logo logo) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
@@ -36,6 +37,7 @@ public class Book {
 		this.bookPublisher = bookPublisher;
 		this.bookPublishedDate = bookPublishedDate;
 		this.bookBlockedStatus = bookBlockedStatus;
+		this.logo = logo;
 	}
 
 
@@ -144,6 +146,16 @@ public class Book {
 
 	public void setBookBlockedStatus(Character bookBlockedStatus) {
 		this.bookBlockedStatus = bookBlockedStatus;
+	}
+
+
+	public Logo getLogo() {
+		return logo;
+	}
+
+
+	public void setLogo(Logo logo) {
+		this.logo = logo;
 	}
 
 }

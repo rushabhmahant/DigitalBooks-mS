@@ -2,11 +2,14 @@ package com.digitalbooks.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,6 +42,9 @@ public class Book {
 	@Column(nullable = false)
 	private Character bookBlockedStatus = 'U';	// Book is unblocked by default
 	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_logo_id")
+	private Logo logo;
 	
 	public Book() {
 	}
@@ -169,6 +175,25 @@ public class Book {
 
 	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
+	}
+
+
+	public Logo getLogo() {
+		return logo;
+	}
+
+
+	public void setLogo(Logo logo) {
+		this.logo = logo;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Book [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookCategory=" + bookCategory + ", authorId="
+				+ authorId + ", bookAuthor=" + bookAuthor + ", bookPrice=" + bookPrice + ", bookLogo=" + bookLogo
+				+ ", bookContent=" + bookContent + ", bookPublisher=" + bookPublisher + ", bookPublishedDate="
+				+ bookPublishedDate + ", bookBlockedStatus=" + bookBlockedStatus + ", logo=" + logo + "]";
 	}
 	
 	

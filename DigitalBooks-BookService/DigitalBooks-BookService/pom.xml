@@ -39,14 +39,14 @@
 		</dependency>
 		
 		<!-- Dependency for Eureka Discovery client -->
-		<dependency>
+		<!-- <dependency>
       		<groupId>org.springframework.cloud</groupId>
       		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-    	</dependency>
+    	</dependency> -->
 	</dependencies>
 	
 	<!-- Dependency Management for Eureka Discovery client -->
-	<dependencyManagement>
+	<!-- <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
@@ -56,7 +56,7 @@
         <scope>import</scope>
       </dependency>
     </dependencies>
-  	</dependencyManagement>
+  	</dependencyManagement> -->
 
 	<build>
 		<plugins>

@@ -13,7 +13,7 @@ public interface BookService {
 
 	public List<Book> getUserSubscribedBooks(Long userId);
 	
-	public Book createBook(Long authorId, Book book);
+	public Book createBook(Long authorId, Book book, Long logoId);
 	
 	public Book updateBook(Long bookId, Book book);
 	
@@ -22,6 +22,7 @@ public interface BookService {
 	public void deleteBook(Long bookId);
 	
 	public Book setBookBlockedStatus(Long authorId, Long bookId, String block, Book book);
+
 	
 	
 	

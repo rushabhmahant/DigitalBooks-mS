@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 		
 		ResponseTemplateUserSubscribedBooks rt = new ResponseTemplateUserSubscribedBooks();
 		User user = userRepository.findByUserId(userId);
-		List<Book> userSubscribedBooks = restTemplate.getForObject("http://localhost:9191/bookservice/readers/"+userId, 
+		List<Book> userSubscribedBooks = restTemplate.getForObject("http://localhost:7002/bookservice/readers/"+userId, 
 				List.class);
 		rt.setUser(user);
 		rt.setUserSubscribedBooks(userSubscribedBooks);
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 	public ResponseTemplateUserSubscriptions getAllUserSubscriptions(Long userId) {
 		ResponseTemplateUserSubscriptions rt = new ResponseTemplateUserSubscriptions();
 		User user = userRepository.findByUserId(userId);
-		List<Subscription> userSubscriptions = restTemplate.getForObject("http://localhost:9191/subscriptionservice/readers/"+userId, 
+		List<Subscription> userSubscriptions = restTemplate.getForObject("http://localhost:7002/subscriptionservice/readers/"+userId, 
 				List.class);
 		rt.setUser(user);
 		rt.setUserSubscriptions(userSubscriptions);
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Subscription addSubscription(Long userId, Long bookId, Subscription subscription) {
-		Subscription newSubscription = restTemplate.postForObject("http://localhost:9191/subscriptionservice/"+userId+"/subscribe/"+bookId, 
+		Subscription newSubscription = restTemplate.postForObject("http://localhost:7002/subscriptionservice/"+userId+"/subscribe/"+bookId, 
 				subscription, Subscription.class);
 		return newSubscription;
 	}
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
 		if(userId == null || userId.toString().length()==0) {
 			throw new BusinessException("603", "Please provide a valid user id in the url");
 		}
-		return restTemplate.postForObject("http://localhost:9191/bookservice/author/"+userId+"/books", 
+		return restTemplate.postForObject("http://localhost:7002/bookservice/author/"+userId+"/books", 
 				book, Book.class);
 	}
 
@@ -116,14 +116,14 @@ public class UserServiceImpl implements UserService {
 		if(bookId == null || bookId.toString().length()==0) {
 			throw new BusinessException("604", "Please provide a valid book id to be updated in the url");
 		}
-		return restTemplate.postForObject("http://localhost:9191/bookservice/author/"+userId+"/book/"+bookId, 
+		return restTemplate.postForObject("http://localhost:7002/bookservice/author/"+userId+"/book/"+bookId, 
 				book, Book.class);
 		
 	}
 
 	@Override
 	public void deleteBook(Long userId, Long bookId) {
-		restTemplate.delete("http://localhost:9191/bookservice/author/delete/"+userId+"/"+bookId);
+		restTemplate.delete("http://localhost:7002/bookservice/author/delete/"+userId+"/"+bookId);
 		
 	}
 
@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Book> getAllBooks() {
-		return restTemplate.getForObject("http://localhost:9191/bookservice/books", List.class);
+		return restTemplate.getForObject("http://localhost:7002/bookservice/books", List.class);
 	}
 
 	@Override

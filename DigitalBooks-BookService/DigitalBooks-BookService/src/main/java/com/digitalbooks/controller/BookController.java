@@ -65,9 +65,10 @@ public class BookController {
 	}
 	
 	@PostMapping("/author/{authorId}/book/{bookId}")
-	public Book updateBook(@PathVariable Long bookId, @RequestBody Book book) {
+	public Book updateBook(@PathVariable Long bookId, @RequestBody Book book,
+			@RequestParam(required = false) Long logoId) {
 		// Make sure to include bookId in request to perform update
-		return bookService.updateBook(bookId, book);
+		return bookService.updateBook(bookId, book, logoId);
 	}
 	
 	@DeleteMapping("/author/delete/{authorId}/{bookId}")

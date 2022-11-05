@@ -15,7 +15,7 @@ public interface BookService {
 	
 	public Book createBook(Long authorId, Book book, Long logoId);
 	
-	public Book updateBook(Long bookId, Book book);
+	public Book updateBook(Long bookId, Book book, Long logoId);
 	
 	public List<Book> searchBook(String category, String title, String author, Double price);
 	

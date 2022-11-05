@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService {
 	
 	public Book createBook(Long authorId, Book book, Long logoId) {
 		book.setAuthorId(authorId);
-		System.out.println("LogoId received: " + logoId);
+		System.out.println("LogoId received for create: " + logoId);
 		if(logoId != null && !logoId.toString().isBlank()) {
 		Logo bookLogo = logoRepository.findByLogoId(logoId);
 		System.out.println(bookLogo.getLogoId()+", " + bookLogo.getLogoName());
@@ -67,12 +67,26 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.save(book);
 	}
 	
-	public Book updateBook(Long bookId, Book book) {
+	public Book updateBook(Long bookId, Book book, Long logoId) {
 		book.setBookId(bookId);
+		System.out.println("LogoId received for update: " + logoId);
+		if(logoId != null && logoId>0) {
+			Logo bookLogo = logoRepository.findByLogoId(logoId);
+			System.out.println(bookLogo.getLogoId()+", " + bookLogo.getLogoName());
+				if(bookLogo != null) {
+					book.setLogo(bookLogo);
+				}
+			}
 		return bookRepository.save(book);
 	}
 
 	public void deleteBook(Long bookId) {
+		Book bookToDelete = bookRepository.findByBookId(bookId);
+		if(bookToDelete.getLogo() != null && bookToDelete.getLogo().getLogoId()>0) {
+			Logo logoToDelete = bookToDelete.getLogo();
+			logoRepository.delete(logoToDelete);
+			System.out.println(logoToDelete.getLogoId()+", " + logoToDelete.getLogoName() + " deleted");
+		}
 		bookRepository.deleteById(bookId);
 	}
 

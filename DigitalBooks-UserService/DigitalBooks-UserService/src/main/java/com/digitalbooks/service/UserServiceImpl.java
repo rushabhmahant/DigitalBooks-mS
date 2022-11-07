@@ -2,6 +2,7 @@ package com.digitalbooks.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -59,6 +60,10 @@ public class UserServiceImpl implements UserService {
 		}
 		if(roleId != 101 && roleId != 102) {
 			throw new BusinessException("606", "Provide valid valid role id for user");
+		}
+		Optional<User> checkUser = userRepository.findByUsername(user.getUsername());
+		if(checkUser.isPresent() && checkUser.get().getUsername().equals(checkUser.get().getUsername())){
+			throw new BusinessException("609", "User is already registered, please chose another username");
 		}
 		String password = user.getUserPassword();
 		String encodedPassword = passwordEncoder.encode(password);

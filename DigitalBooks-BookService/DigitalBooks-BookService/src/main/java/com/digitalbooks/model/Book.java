@@ -1,6 +1,6 @@
 package com.digitalbooks.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,7 +29,7 @@ public class Book {
 	private Long authorId;
 	@Column(nullable = false)
 	private String bookAuthor;
-	@Column(nullable = false)
+	@Column(nullable = false, precision=8, scale=2)
 	private Double bookPrice;
 	@Column(nullable = false)
 	private String bookLogo;
@@ -38,7 +38,7 @@ public class Book {
 	@Column(nullable = false)
 	private String bookPublisher;
 	@Column(nullable = false)
-	private LocalDate bookPublishedDate;
+	private LocalDateTime bookPublishedDate;
 	@Column(nullable = false)
 	private Character bookBlockedStatus = 'U';	// Book is unblocked by default
 	
@@ -51,7 +51,7 @@ public class Book {
 
 
 	public Book(Long bookId, String bookTitle, String bookCategory, Long authorId, String bookAuthor, Double bookPrice,
-			String bookLogo, String bookContent, String bookPublisher, LocalDate bookPublishedDate,
+			String bookLogo, String bookContent, String bookPublisher, LocalDateTime bookPublishedDate,
 			Character bookBlockedStatus) {
 		super();
 		this.bookId = bookId;
@@ -148,12 +148,12 @@ public class Book {
 	}
 
 
-	public LocalDate getBookPublishedDate() {
+	public LocalDateTime getBookPublishedDate() {
 		return bookPublishedDate;
 	}
 
 
-	public void setBookPublishedDate(LocalDate bookPublishedDate) {
+	public void setBookPublishedDate(LocalDateTime bookPublishedDate) {
 		this.bookPublishedDate = bookPublishedDate;
 	}
 

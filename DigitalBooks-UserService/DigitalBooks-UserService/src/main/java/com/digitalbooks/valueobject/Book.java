@@ -1,6 +1,7 @@
 package com.digitalbooks.valueobject;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Book {
 	
@@ -13,7 +14,7 @@ public class Book {
 	private String bookLogo;
 	private String bookContent;
 	private String bookPublisher;
-	private LocalDate bookPublishedDate;
+	private LocalDateTime bookPublishedDate;
 	private Character bookBlockedStatus = 'U';	//	Unblocked by default
 	
 	private Logo logo;
@@ -23,7 +24,7 @@ public class Book {
 
 
 	public Book(Long bookId, String bookTitle, String bookCategory, Long authorId, String bookAuthor, Double bookPrice,
-			String bookLogo, String bookContent, String bookPublisher, LocalDate bookPublishedDate,
+			String bookLogo, String bookContent, String bookPublisher, LocalDateTime bookPublishedDate,
 			Character bookBlockedStatus, Logo logo) {
 		super();
 		this.bookId = bookId;
@@ -129,12 +130,12 @@ public class Book {
 	}
 
 
-	public LocalDate getBookPublishedDate() {
+	public LocalDateTime getBookPublishedDate() {
 		return bookPublishedDate;
 	}
 
 
-	public void setBookPublishedDate(LocalDate bookPublishedDate) {
+	public void setBookPublishedDate(LocalDateTime bookPublishedDate) {
 		this.bookPublishedDate = bookPublishedDate;
 	}
 

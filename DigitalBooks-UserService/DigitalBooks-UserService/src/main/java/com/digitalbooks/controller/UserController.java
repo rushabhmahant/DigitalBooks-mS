@@ -122,6 +122,12 @@ public class UserController {
 		return userService.addSubscription(userId, bookId, subscription);
 	}
 	
+	@RolesAllowed({"ROLE_READER"})
+	@DeleteMapping("/readers/{userId}/removesubscription/{subscriptionId}")
+	public ResponseEntity<?> removeSubscription(@PathVariable Long userId, @PathVariable Long subscriptionId) {
+		return userService.removeSubscription(userId, subscriptionId);
+	}
+	
 	//	APIs below are accessible only to authors
 	//	userId=authorId
 	

@@ -1,5 +1,8 @@
 package com.digitalbooks.service;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +27,7 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookRepository bookRepository;
 	
-	@Autowired LogoRepository logoRepository;
+	@Autowired private LogoRepository logoRepository;
 	
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
@@ -37,8 +40,24 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findById(bookId).get();
 	}
 	
-	public List<Book> searchBook(String category, String title, String author, Double price) {		
-		return bookRepository.searchBook(category, title, author, price);
+	public List<Book> searchBook(String category, String title, String author, Double price) {
+		String priceAsString = String.valueOf(price);
+		if(price != null && !price.toString().isBlank()) {
+			BigDecimal priceAsBigDecimal = new BigDecimal(priceAsString);
+			int intValue = priceAsBigDecimal.intValue();
+			String decimalValue = priceAsBigDecimal.subtract(
+					  new BigDecimal(intValue)).toPlainString();
+			if(Double.parseDouble(decimalValue) == 0) {
+				priceAsString = String.valueOf(intValue);
+			}
+		}else {priceAsString="";}
+		List<Book> booksFound = bookRepository.searchBook(category, title, author, priceAsString);
+		System.out.println("Searching... title: "+title+", category: "+category
+				+", author: "+author+", price: "+price);
+		for(Book book: booksFound) {
+			System.out.println(book);
+		}
+		return booksFound;
 	}
 
 	//	Readers APIs below
@@ -64,6 +83,7 @@ public class BookServiceImpl implements BookService {
 				book.setLogo(bookLogo);
 			}
 		}
+		book.setBookPublishedDate(book.getBookPublishedDate().plusHours(5).plusMinutes(30));
 		return bookRepository.save(book);
 	}
 	
@@ -77,11 +97,19 @@ public class BookServiceImpl implements BookService {
 					book.setLogo(bookLogo);
 				}
 			}
+		book.setBookPublishedDate(book.getBookPublishedDate().plusHours(5).plusMinutes(30));
 		return bookRepository.save(book);
 	}
 
 	public void deleteBook(Long bookId) {
 		Book bookToDelete = bookRepository.findByBookId(bookId);
+		
+		List<Subscription> subscriptionList = subscriptionRepository.getUserSubscriptionsByBook(bookId);
+		for(Subscription s: subscriptionList) {
+			s.setSubscriptionStatus('I');
+			subscriptionRepository.save(s);
+		}
+		
 		if(bookToDelete.getLogo() != null && bookToDelete.getLogo().getLogoId()>0) {
 			Logo logoToDelete = bookToDelete.getLogo();
 			logoRepository.delete(logoToDelete);

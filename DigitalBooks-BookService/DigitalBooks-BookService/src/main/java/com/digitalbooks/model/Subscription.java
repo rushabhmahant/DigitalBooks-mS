@@ -1,6 +1,7 @@
 package com.digitalbooks.model;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,8 +31,8 @@ public class Subscription {
 	@Column(nullable = false)
 	private Character subscriptionStatus = 'A';	// Subscription status set to Active by default
 	@Column(nullable = false)
-	private LocalDate subscriptionDate;
-	@Column(nullable = false)
+	private LocalDateTime subscriptionDate;
+	@Column(nullable = false, precision=8, scale=2)
 	private Double subscriptionPrice;
 	
 	public Subscription() {
@@ -39,7 +40,7 @@ public class Subscription {
 	}
 
 	public Subscription(Long userId, Long bookId, String bookTitle, Character subscriptionStatus,
-			LocalDate subscriptionDate, Double subscriptionPrice) {
+			LocalDateTime subscriptionDate, Double subscriptionPrice) {
 		super();
 		//this.userId = userId;
 		this.bookId = bookId;
@@ -65,11 +66,11 @@ public class Subscription {
 		this.subscriptionStatus = subscriptionStatus;
 	}
 
-	public LocalDate getSubscriptionDate() {
+	public LocalDateTime getSubscriptionDate() {
 		return subscriptionDate;
 	}
 
-	public void setSubscriptionDate(LocalDate subscriptionDate) {
+	public void setSubscriptionDate(LocalDateTime subscriptionDate) {
 		this.subscriptionDate = subscriptionDate;
 	}
 

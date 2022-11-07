@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -191,6 +193,12 @@ public class UserServiceImpl implements UserService {
 	public Book getBookById(Long userId, Long bookId) {
 		System.out.println("User " + userId + " is reading book " + bookId);
 		return restTemplate.getForObject("http://localhost:7002/bookservice/book/bookId", Book.class);
+	}
+
+	@Override
+	public ResponseEntity<?> removeSubscription(Long userId, Long subscriptionId) {
+		restTemplate.delete("http://localhost:7002/subscriptionservice/"+userId + "/removesubscription/" + subscriptionId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	

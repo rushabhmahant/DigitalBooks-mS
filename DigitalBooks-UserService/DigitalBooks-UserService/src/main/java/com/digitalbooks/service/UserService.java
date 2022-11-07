@@ -2,6 +2,7 @@ package com.digitalbooks.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.digitalbooks.exceptionhandling.BusinessException;
@@ -41,6 +42,8 @@ public interface UserService {
 	public User assignRoleToUser(Long userId, Long roleId);
 
 	public Book getBookById(Long userId, Long bookId);
+
+	public ResponseEntity<?> removeSubscription(Long userId, Long subscriptionId);
 	
 	
 

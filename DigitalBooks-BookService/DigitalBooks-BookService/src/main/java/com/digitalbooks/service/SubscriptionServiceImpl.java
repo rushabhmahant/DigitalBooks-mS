@@ -1,6 +1,7 @@
 package com.digitalbooks.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		newSubscription.setUserId(userId);
 		newSubscription.setBookId(bookId);
 		newSubscription.setBookTitle(subscribedBook.getBookTitle());
-		newSubscription.setSubscriptionDate(LocalDate.now());
+		newSubscription.setSubscriptionDate(LocalDateTime.now().plusHours(5).plusMinutes(30));
 		newSubscription.setSubscriptionPrice(subscribedBook.getBookPrice());
 		return subscriptionRepository.save(newSubscription);
 	}
 
 	@Override
 	public void deleteBySubscriptionId(Long subscriptionId) {
-		subscriptionRepository.deleteBySubscriptionId(subscriptionId);
+		subscriptionRepository.deleteById(subscriptionId);
 		
 	}
 

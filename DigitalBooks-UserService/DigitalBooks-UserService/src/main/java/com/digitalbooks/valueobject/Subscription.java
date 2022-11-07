@@ -1,6 +1,7 @@
 package com.digitalbooks.valueobject;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Subscription {
 	
@@ -9,7 +10,7 @@ public class Subscription {
 	private Long bookId;
 	private String bookTitle;
 	private Character subscriptionStatus;
-	private LocalDate subscriptionDate;
+	private LocalDateTime subscriptionDate;
 	private Double subscriptionPrice;
 	
 	public Subscription() {
@@ -17,7 +18,7 @@ public class Subscription {
 	}
 
 	public Subscription(Long subscriptionId, Long userId, Long bookId, String bookTitle, Character subscriptionStatus,
-			LocalDate subscriptionDate, Double subscriptionPrice) {
+			LocalDateTime subscriptionDate, Double subscriptionPrice) {
 		super();
 		this.subscriptionId = subscriptionId;
 		this.userId = userId;
@@ -70,11 +71,11 @@ public class Subscription {
 		this.subscriptionStatus = subscriptionStatus;
 	}
 
-	public LocalDate getSubscriptionDate() {
+	public LocalDateTime getSubscriptionDate() {
 		return subscriptionDate;
 	}
 
-	public void setSubscriptionDate(LocalDate subscriptionDate) {
+	public void setSubscriptionDate(LocalDateTime subscriptionDate) {
 		this.subscriptionDate = subscriptionDate;
 	}
 

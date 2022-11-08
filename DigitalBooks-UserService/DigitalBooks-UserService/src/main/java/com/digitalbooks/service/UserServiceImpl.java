@@ -78,7 +78,9 @@ public class UserServiceImpl implements UserService {
 		
 		ResponseTemplateUserSubscribedBooks rt = new ResponseTemplateUserSubscribedBooks();
 		User user = userRepository.findByUserId(userId);
-		List<Book> userSubscribedBooks = restTemplate.getForObject("http://localhost:7002/bookservice/readers/"+userId, 
+//		List<Book> userSubscribedBooks = restTemplate.getForObject("http://localhost:7002/bookservice/readers/"+userId, 
+//				List.class);
+		List<Book> userSubscribedBooks = restTemplate.getForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/bookservice/readers/"+userId, 
 				List.class);
 		rt.setUser(user);
 		rt.setUserSubscribedBooks(userSubscribedBooks);
@@ -89,7 +91,9 @@ public class UserServiceImpl implements UserService {
 	public ResponseTemplateUserSubscriptions getAllUserSubscriptions(Long userId) {
 		ResponseTemplateUserSubscriptions rt = new ResponseTemplateUserSubscriptions();
 		User user = userRepository.findByUserId(userId);
-		List<Subscription> userSubscriptions = restTemplate.getForObject("http://localhost:7002/subscriptionservice/readers/"+userId, 
+//		List<Subscription> userSubscriptions = restTemplate.getForObject("http://localhost:7002/subscriptionservice/readers/"+userId, 
+//				List.class);
+		List<Subscription> userSubscriptions = restTemplate.getForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/subscriptionservice/readers/"+userId, 
 				List.class);
 		rt.setUser(user);
 		rt.setUserSubscriptions(userSubscriptions);
@@ -99,7 +103,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Subscription addSubscription(Long userId, Long bookId, Subscription subscription) {
-		Subscription newSubscription = restTemplate.postForObject("http://localhost:7002/subscriptionservice/"+userId+"/subscribe/"+bookId, 
+//		Subscription newSubscription = restTemplate.postForObject("http://localhost:7002/subscriptionservice/"+userId+"/subscribe/"+bookId, 
+//				subscription, Subscription.class);
+		Subscription newSubscription = restTemplate.postForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/subscriptionservice/"+userId+"/subscribe/"+bookId, 
 				subscription, Subscription.class);
 		return newSubscription;
 	}
@@ -111,7 +117,9 @@ public class UserServiceImpl implements UserService {
 		if(userId == null || userId.toString().length()==0) {
 			throw new BusinessException("603", "Please provide a valid user id in the url");
 		}
-		return restTemplate.postForObject("http://localhost:7002/bookservice/author/"+userId+"/books", 
+//		return restTemplate.postForObject("http://localhost:7002/bookservice/author/"+userId+"/books", 
+//				book, Book.class);
+		return restTemplate.postForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/bookservice/author/"+userId+"/books", 
 				book, Book.class);
 	}
 
@@ -123,14 +131,17 @@ public class UserServiceImpl implements UserService {
 		if(bookId == null || bookId.toString().length()==0) {
 			throw new BusinessException("604", "Please provide a valid book id to be updated in the url");
 		}
-		return restTemplate.postForObject("http://localhost:7002/bookservice/author/"+userId+"/book/"+bookId, 
+//		return restTemplate.postForObject("http://localhost:7002/bookservice/author/"+userId+"/book/"+bookId, 
+//				book, Book.class);
+		return restTemplate.postForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/bookservice/author/"+userId+"/book/"+bookId, 
 				book, Book.class);
 		
 	}
 
 	@Override
 	public void deleteBook(Long userId, Long bookId) {
-		restTemplate.delete("http://localhost:7002/bookservice/author/delete/"+userId+"/"+bookId);
+//		restTemplate.delete("http://localhost:7002/bookservice/author/delete/"+userId+"/"+bookId);
+		restTemplate.delete("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/bookservice/author/delete/"+userId+"/"+bookId);
 		
 	}
 
@@ -157,15 +168,18 @@ public class UserServiceImpl implements UserService {
 			book.setBookBlockedStatus(bookStatus);
 			updateBook(userId, bookId, book);
 			
-				String jsonString = 
-						restTemplate.getForObject("http://localhost:7002/subscriptionservice/author/"+bookId, String.class);
+//				String jsonString = 
+//						restTemplate.getForObject("http://localhost:7002/subscriptionservice/author/"+bookId, String.class);
+			String jsonString = 
+					restTemplate.getForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/subscriptionservice/author/"+bookId, String.class);
 				ObjectMapper objectMapper = new ObjectMapper();
 				objectMapper.registerModule(new JSR310Module());
 				List<Subscription> userSubscriptions = objectMapper.readValue(jsonString, new TypeReference<List<Subscription>>() {});
 				List<Subscription> subscriptionList = new ArrayList<Subscription>(userSubscriptions);
 				for(Subscription s: subscriptionList) {
 					User user = userRepository.findByUserId(s.getUserId());
-					restTemplate.put("http://localhost:7002/subscriptionservice/"+user.getUserId()+"/updatesubscriptionstatus/"+s.getSubscriptionId()+"/"+subscriptionStatus, "");
+//					restTemplate.put("http://localhost:7002/subscriptionservice/"+user.getUserId()+"/updatesubscriptionstatus/"+s.getSubscriptionId()+"/"+subscriptionStatus, "");
+					restTemplate.put("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/subscriptionservice/"+user.getUserId()+"/updatesubscriptionstatus/"+s.getSubscriptionId()+"/"+subscriptionStatus, "");
 					if(bookStatus.equals('B')) {
 					System.out.println("Notification for user " + user.getUsername() + 
 							": The book you subscribed " + book.getBookTitle() + 
@@ -181,7 +195,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Book> getAllBooks() {
-		return restTemplate.getForObject("http://localhost:7002/bookservice/books", List.class);
+//		return restTemplate.getForObject("http://localhost:7002/bookservice/books", List.class);
+		return restTemplate.getForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/bookservice/books", List.class);
 	}
 
 	@Override
@@ -197,12 +212,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Book getBookById(Long userId, Long bookId) {
 		System.out.println("User " + userId + " is reading book " + bookId);
-		return restTemplate.getForObject("http://localhost:7002/bookservice/book/bookId", Book.class);
+//		return restTemplate.getForObject("http://localhost:7002/bookservice/book/bookId", Book.class);
+		return restTemplate.getForObject("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/bookservice/book/bookId", Book.class);
 	}
 
 	@Override
 	public ResponseEntity<?> removeSubscription(Long userId, Long subscriptionId) {
-		restTemplate.delete("http://localhost:7002/subscriptionservice/"+userId + "/removesubscription/" + subscriptionId);
+//		restTemplate.delete("http://localhost:7002/subscriptionservice/"+userId + "/removesubscription/" + subscriptionId);
+		restTemplate.delete("http://Digitalbooksbookservice-env.eba-w4wsiyef.ap-northeast-1.elasticbeanstalk.com/subscriptionservice/"+userId + "/removesubscription/" + subscriptionId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

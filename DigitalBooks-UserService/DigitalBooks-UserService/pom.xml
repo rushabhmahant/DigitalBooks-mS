@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.digitalbooks</groupId>
 	<artifactId>DigitalBooks-UserService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v0.0.1</version>
 	<name>DigitalBooks-UserService</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

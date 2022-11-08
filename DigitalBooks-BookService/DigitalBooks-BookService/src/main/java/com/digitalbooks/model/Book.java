@@ -33,7 +33,7 @@ public class Book {
 	private Double bookPrice;
 	@Column(nullable = false)
 	private String bookLogo;
-	@Column(nullable = false)
+	@Column(nullable = false, length = 1000)
 	private String bookContent;
 	@Column(nullable = false)
 	private String bookPublisher;

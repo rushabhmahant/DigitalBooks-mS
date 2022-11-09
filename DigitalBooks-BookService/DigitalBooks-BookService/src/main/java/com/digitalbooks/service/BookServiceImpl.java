@@ -68,7 +68,9 @@ public class BookServiceImpl implements BookService {
 		List<Book> userSubscribedBooks = new ArrayList<Book>();
 		for(Subscription s: userSubscriptions) {
 			// perform a check if findByBookId(s.bookId) != null
-			userSubscribedBooks.add(bookRepository.findByBookId(s.getBookId()));
+			if(s.getSubscriptionStatus().equals('A')) {
+				userSubscribedBooks.add(bookRepository.findByBookId(s.getBookId()));
+			}
 		}
 		return userSubscribedBooks;
 	}
